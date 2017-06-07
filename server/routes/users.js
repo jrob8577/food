@@ -4,9 +4,11 @@ const router = express.Router()
 const { User } = require( '../database' )
 
 router.post( '/sign-up', (request, response) => {
-  const { username, email, password, password_verified, latitude, longitude } = request.body
+  const { username, email, password, lat, long } = request.body
 
-  User.signUp({ username, email, password, password_verified, latitude, longitude })
+  // TODO: If user exists, return
+
+  User.signUp({ username, email, password, lat, long })
     .then( user => response.status(201).json( user ))
     .catch( error => response.status(500).json({ error: error.message  }))
 })
